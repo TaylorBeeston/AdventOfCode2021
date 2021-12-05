@@ -9,17 +9,17 @@ fn main() {
     let raw_input = get_input();
     let mut input = raw_input.iter();
 
-    let mut number = input.next();
+    let mut number = Some(&0);
 
-    while number.is_some() && !boards.iter().any(|board| board.check_won()) {
+    while !boards.iter().any(|board| board.check_won()) {
+        number = input.next();
+
         println!("Checking {}", number.unwrap());
 
         boards = boards
             .iter()
             .map(|board| board.check_num(*number.unwrap()))
             .collect();
-
-        number = input.next();
     }
 
     boards.iter().for_each(|board| {
@@ -27,6 +27,7 @@ fn main() {
             println!("We have a winner! Total score is {}", board.unmarked_sum());
             println!("Last number was {}", number.unwrap());
             println!("Answer is {}", number.unwrap() * board.unmarked_sum());
+            board.print();
         }
         // board.print();
     });
