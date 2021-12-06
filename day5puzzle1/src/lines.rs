@@ -34,4 +34,9 @@ impl Line {
             p2: Point::new(x2.parse().unwrap(), y2.parse().unwrap()),
         }
     }
+
+    pub fn points(&self) -> ((usize, usize), (usize, usize)) {
+        let Line { p1, p2 } = self;
+        ((p1.x, p1.y), (p2.x, p2.y))
+    }
 }
